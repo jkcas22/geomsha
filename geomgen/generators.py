@@ -138,7 +138,7 @@ def gen_image(shapes, noise = None, rnd=np.random.default_rng(), im_size=160, ma
     return (img[:,:,0],sha,nse)
 
 
-def gen_details(shapes_im_size, shapes, image):
+def gen_details(shapes_im_size, shapes, image, rnd=np.random.default_rng(), max_fluct=0):
     """Extracts a detail image of each shape from an image
 
     Parameters
@@ -148,16 +148,22 @@ def gen_details(shapes_im_size, shapes, image):
     shapes : ndarray
         The list of shapes, i.e. the shape parameters relativ to the size of image
     image : ndarray
-        The greyscale image conteaining the shapes
+        The greyscale image containing the shapes
+    rnd : Generator
+        Generator for random numbers representing the fluctuation of the shapes center
+    fluct : int
+        maximum fluctuation of the shapes center (in pixels)
 
     Returns
     -------
     details : ndarray
-        A list of images of size=(detail_size, detail_size), one image per shape
+        A list of images of size=(shapes_im_size, shapes_im_size), one image per shape
     """
     im_size = len(image)
     radius = shapes_im_size // 2
     mid_point = shapes[:,1:3].astype(int)
+    if max_fluct>0:
+        mid_point = mid_point+(rnd.integers(0,2*max_fluct+2,size=(len(shapes),2))-(max_fluct+1))
     mid_point = np.c_[im_size-mid_point[:,1],mid_point[:,0]]
     lower_left = mid_point-radius
     upper_right = lower_left+shapes_im_size
