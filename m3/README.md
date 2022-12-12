@@ -8,4 +8,8 @@ Train and  apply at least two models presented in the Module to other datasets t
 3. Fit [logistic regression](./logistic.ipynb) to the image data. Result: Low test accuray of 0.57.
 4. Fit [umap](./umap.ipynb) to the image data. Result: umap can't separate any clusters.
 5. Fit [random forest](./forest.ipynb) to the image data. Result: High test accuracy of 0.97.
-6. Fit [neural network](neural.ipynb) to the image data. Result: Best test accuracy of 0.98.
+6. Fit [neural network](./neural.ipynb) to the image data. Result: Best test accuracy of 0.98.
+7. Stress test of random forest model with other image settings
+    - Prediction on [pure black and white](./forest_stress_bw.ipynb) images. Result: Still good test accuracy of 0.94.
+    - Prediction with [fluctuating midpoint](./forest_stress_center.ipynb) of the shapes: Bad test accuracy of 0.58.
+8. Stress test of neural network model with other image settings
